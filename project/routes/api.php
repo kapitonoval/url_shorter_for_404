@@ -14,4 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //
-Route::post('/add', 'Api\V1\LinksController@add')->name('api.link.create');
+Route::group([
+    'middleware' => ['auth:api']
+],function () {
+
+    Route::middleware('auth:api')->post('/add', 'Api\V1\LinksController@add')
+        ->name('api.link.create');
+});
+Route::post('/login', 'Api\V1\AuthController@login')->name('login');
