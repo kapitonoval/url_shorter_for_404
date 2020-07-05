@@ -71,8 +71,7 @@ class LinksController extends Controller
 
         if (is_null($Link)) {
             $LinkThrottleRequest
-                ->setParam($userIp)
-                ->setParam($userAgent)
+                ->initParam($request)
                 ->saveError();
             abort(Response::HTTP_NOT_FOUND);
         }

@@ -2,6 +2,8 @@
 
 namespace App\Services\Links\Contracts;
 
+use Illuminate\Http\Request;
+
 interface LinkThrottleRequestInterface
 {
     public function setParam(string $value);
@@ -11,4 +13,6 @@ interface LinkThrottleRequestInterface
     public function saveError(): void;
 
     public function isBlocked(): bool;
+
+    public function initParam(Request $request);
 }

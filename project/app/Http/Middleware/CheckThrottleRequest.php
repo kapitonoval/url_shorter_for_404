@@ -18,10 +18,7 @@ class CheckThrottleRequest
     public function handle($request, Closure $next)
     {
         $LinkThrottleRequest = new LinkThrottleRequest();
-        if ($LinkThrottleRequest
-            ->setParam($request->userAgent())
-            ->setParam($request->ip())
-            ->isBlocked()) {
+        if ($LinkThrottleRequest->initParam($request)->isBlocked()) {
             abort(Response::HTTP_TOO_MANY_REQUESTS);
         }
         return $next($request);

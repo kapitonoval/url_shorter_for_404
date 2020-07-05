@@ -2,6 +2,7 @@
 
 namespace App\Services\Links;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use \App\Services\Links\Contracts\LinkThrottleRequestInterface;
 
@@ -25,6 +26,17 @@ class LinkThrottleRequest implements LinkThrottleRequestInterface
 
     public function __construct()
     {
+    }
+
+    /**
+     * @param Request $request
+     * @return $this
+     */
+    public function initParam(Request $request)
+    {
+        $this->setParam($request->userAgent());
+        $this->setParam($request->ip());
+        return $this;
     }
 
     /**
@@ -67,6 +79,7 @@ class LinkThrottleRequest implements LinkThrottleRequestInterface
      */
     private function getKey(): string
     {
+        sort($this->param);
         return self::PREPEND_KEY . md5(implode('', $this->param));
     }
 
