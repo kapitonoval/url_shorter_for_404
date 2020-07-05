@@ -45,11 +45,11 @@ class LinksController extends Controller
                 "link_short_shuffle" => $LinksService->shortHash($request->post('url')),
                 "link" => $request->post('url')
             ]);
-        }catch (NotUniqueHashGenerateException $e){
+        } catch (NotUniqueHashGenerateException $e) {
             return response()->json(['error' => $e->getMessage() . ' Please, try again.'], Response::HTTP_BAD_REQUEST);
         }
 
-        Cache::put($linkHash, "",-1);
+        Cache::put($linkHash, "", -1);
 
         return response()->json(["url" => route('api.link.redirect', ['hash' => $Link->link_short_shuffle])]);
     }
@@ -80,10 +80,10 @@ class LinksController extends Controller
             'referrer' => $_SERVER['HTTP_REFERER'] ?? "",
             'link_id' => $Link->id,
             'user_ip' => $userIp,
-            'user_agent' => $userAgent
+            'user_agent' => $userAgent,
+            'user_id' => auth()->id ?? 0
         ]);
 
         return redirect()->away($Link->link, Response::HTTP_MOVED_PERMANENTLY);
     }
-
 }
