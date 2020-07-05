@@ -10,3 +10,6 @@
 токен установить в заголовках: http://joxi.ru/ZrJk9BdsM7B79m
 файл для тестов Porstman лежит в корне репозитория 404_group_test.postman_collection.json
 
+6. Tests:
+- `php artisan test`
+- `./vendor/bin/phpunit` 
