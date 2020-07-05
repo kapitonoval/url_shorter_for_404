@@ -13,6 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware('check.throttle.request')->get('/short/{hash}', 'Api\V1\LinksController@short')->name('api.link.redirect');
